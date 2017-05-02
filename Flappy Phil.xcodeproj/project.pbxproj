@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6CF7D90A1EB91D6B0025C9DF /* Flappy Felipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flappy Felipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CF7D90A1EB91D6B0025C9DF /* Flappy Phil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flappy Phil.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF7D90D1EB91D6B0025C9DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CF7D90F1EB91D6B0025C9DF /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		6CF7D9111EB91D6B0025C9DF /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		6CF7D90B1EB91D6B0025C9DF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CF7D90A1EB91D6B0025C9DF /* Flappy Felipe.app */,
+				6CF7D90A1EB91D6B0025C9DF /* Flappy Phil.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,9 +76,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6CF7D9091EB91D6B0025C9DF /* Flappy Felipe */ = {
+		6CF7D9091EB91D6B0025C9DF /* Flappy Phil */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CF7D9221EB91D6B0025C9DF /* Build configuration list for PBXNativeTarget "Flappy Felipe" */;
+			buildConfigurationList = 6CF7D9221EB91D6B0025C9DF /* Build configuration list for PBXNativeTarget "Flappy Phil" */;
 			buildPhases = (
 				6CF7D9061EB91D6B0025C9DF /* Sources */,
 				6CF7D9071EB91D6B0025C9DF /* Frameworks */,
@@ -88,9 +88,9 @@
 			);
 			dependencies = (
 			);
-			name = "Flappy Felipe";
+			name = "Flappy Phil";
 			productName = "Flappy Felipe";
-			productReference = 6CF7D90A1EB91D6B0025C9DF /* Flappy Felipe.app */;
+			productReference = 6CF7D90A1EB91D6B0025C9DF /* Flappy Phil.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6CF7D9051EB91D6B0025C9DF /* Build configuration list for PBXProject "Flappy Felipe" */;
+			buildConfigurationList = 6CF7D9051EB91D6B0025C9DF /* Build configuration list for PBXProject "Flappy Phil" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -123,7 +123,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6CF7D9091EB91D6B0025C9DF /* Flappy Felipe */,
+				6CF7D9091EB91D6B0025C9DF /* Flappy Phil */,
 			);
 		};
 /* End PBXProject section */
@@ -296,7 +296,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6CF7D9051EB91D6B0025C9DF /* Build configuration list for PBXProject "Flappy Felipe" */ = {
+		6CF7D9051EB91D6B0025C9DF /* Build configuration list for PBXProject "Flappy Phil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CF7D9201EB91D6B0025C9DF /* Debug */,
@@ -305,7 +305,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CF7D9221EB91D6B0025C9DF /* Build configuration list for PBXNativeTarget "Flappy Felipe" */ = {
+		6CF7D9221EB91D6B0025C9DF /* Build configuration list for PBXNativeTarget "Flappy Phil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CF7D9231EB91D6B0025C9DF /* Debug */,
