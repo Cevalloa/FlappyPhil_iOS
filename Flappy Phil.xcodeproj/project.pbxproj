@@ -44,7 +44,7 @@
 		6CF7D9011EB91D6B0025C9DF = {
 			isa = PBXGroup;
 			children = (
-				6CF7D90C1EB91D6B0025C9DF /* Flappy Felipe */,
+				6CF7D90C1EB91D6B0025C9DF /* Flappy Phil */,
 				6CF7D90B1EB91D6B0025C9DF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,7 +57,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6CF7D90C1EB91D6B0025C9DF /* Flappy Felipe */ = {
+		6CF7D90C1EB91D6B0025C9DF /* Flappy Phil */ = {
 			isa = PBXGroup;
 			children = (
 				6CF7D90D1EB91D6B0025C9DF /* AppDelegate.swift */,
@@ -70,6 +70,7 @@
 				6CF7D91C1EB91D6B0025C9DF /* LaunchScreen.storyboard */,
 				6CF7D91F1EB91D6B0025C9DF /* Info.plist */,
 			);
+			name = "Flappy Phil";
 			path = "Flappy Felipe";
 			sourceTree = "<group>";
 		};
@@ -312,6 +313,7 @@
 				6CF7D9241EB91D6B0025C9DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
