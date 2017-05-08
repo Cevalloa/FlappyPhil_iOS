@@ -20,6 +20,12 @@ class GameScene: SKScene {
     var playableStart: CGFloat = 0
     var playableHeight: CGFloat = 0
     
+    // Creates infinite ground movement
+    let numberOfForegrounds = 2
+    let groundSpeed: CGFloat = 150
+    var deltaTime: TimeInterval = 0
+    var lastUpdateTimeInterval: TimeInterval = 0
+    
     override func didMove(to view: SKView) {
         
         addChild(worldNode)
@@ -42,11 +48,58 @@ class GameScene: SKScene {
     
     func setUpForeground() {
         
-        let foreground = SKSpriteNode(imageNamed: "Ground")
-        foreground.anchorPoint = CGPoint(x: 0, y: 1.0)
-        foreground.position = CGPoint(x: 0, y: playableStart)
-        foreground.zPosition = Layer.foreground.rawValue
+        for i in 0..<numberOfForegrounds {
+            
+            let foreground = SKSpriteNode(imageNamed: "Ground")
+            foreground.anchorPoint = CGPoint(x: 0, y: 1.0)
+            foreground.position = CGPoint(x: CGFloat(i) * foreground.size.width, y: playableStart)
+            foreground.zPosition = Layer.foreground.rawValue
+            foreground.name = "foreground"
+            
+            worldNode.addChild(foreground)
+        }
+    }
+    
+    func updateForeground() {
         
-        worldNode.addChild(foreground)
+        worldNode.enumerateChildNodes(withName: "foreground") { (node, stop) in
+            
+            if let foreground = node as? SKSpriteNode {
+                
+                // Move to the left times the change in time
+                // Delta time ensures smooth animation (percentage completed)
+                let moveAmount = CGPoint(x: -self.groundSpeed * CGFloat(self.deltaTime), y:0)
+                
+                // Accelerate the bottom node to the right by moveAmount
+                foreground.position += moveAmount
+                
+                // If each individual node in the foreground is less than screen width
+                // -320 means TWO of the nodes are to the left
+                // So move the nodes back to the left !
+                if foreground.position.x < -foreground.size.width {
+                    
+                    foreground.position += CGPoint(x: foreground.size.width * CGFloat(self.numberOfForegrounds), y:0)
+                }
+            }
+        }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        
+        // Called once, saves the current time as last updated
+        if lastUpdateTimeInterval == 0 {
+            lastUpdateTimeInterval = currentTime
+        }
+        
+        // Minuses the last updated time from the current time
+        deltaTime = currentTime - lastUpdateTimeInterval
+        
+        // Assigns the current time to the last updated
+        lastUpdateTimeInterval = currentTime
+        
+        updateForeground()
     }
 }
+
+
+

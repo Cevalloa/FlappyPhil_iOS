@@ -15,10 +15,12 @@ class GameViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
+        // GameViewController has a view, we change it to SKView
         if let skView = self.view as? SKView {
             
             if skView.scene == nil {
                 
+                // The aspect ratio is set to fit on all screen sizes
                 let aspectRatio = skView.bounds.size.height / skView.bounds.size.width
                 let scene = GameScene(size: CGSize(width: 320, height: 320 * aspectRatio))
                 
