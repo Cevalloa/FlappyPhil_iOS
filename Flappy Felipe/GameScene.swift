@@ -12,25 +12,32 @@ import GameplayKit
 enum Layer: CGFloat {
     case background
     case foreground
+    case player
 }
 
 class GameScene: SKScene {
     
-    let worldNode = SKNode()
-    var playableStart: CGFloat = 0
-    var playableHeight: CGFloat = 0
+    // Class Properties
+        let worldNode = SKNode()
+        var playableStart: CGFloat = 0
+        var playableHeight: CGFloat = 0
+        
+        // Creates infinite ground movement
+        let numberOfForegrounds = 2
+        let groundSpeed: CGFloat = 150
+        var deltaTime: TimeInterval = 0
+        var lastUpdateTimeInterval: TimeInterval = 0
+        
+        // Players
+        let player = PlayerEntity(imageName: "Bird0")
     
-    // Creates infinite ground movement
-    let numberOfForegrounds = 2
-    let groundSpeed: CGFloat = 150
-    var deltaTime: TimeInterval = 0
-    var lastUpdateTimeInterval: TimeInterval = 0
-    
+    // SKScene Methods
     override func didMove(to view: SKView) {
         
         addChild(worldNode)
         setUpBackground()
         setUpForeground()
+        setupPlayer()
     }
     
     func setUpBackground() {
@@ -99,7 +106,19 @@ class GameScene: SKScene {
         
         updateForeground()
     }
+    
+    func setupPlayer() {
+        
+        let playerNode = player.spriteComponent.node
+        playerNode.position = CGPoint(x: size.width * 0.2, y: playableHeight * 0.4 + playableStart)
+        playerNode.zPosition = Layer.player.rawValue
+        
+        worldNode.addChild(playerNode)
+    }
 }
+
+
+
 
 
 

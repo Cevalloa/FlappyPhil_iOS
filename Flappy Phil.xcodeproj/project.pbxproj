@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C36198A1EC258940028FA30 /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3619891EC258940028FA30 /* PlayerEntity.swift */; };
+		6C36198C1EC25D190028FA30 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C36198B1EC25D180028FA30 /* SpriteComponent.swift */; };
 		6CC540251EBFC6990060B61C /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6CC5400D1EBFC6990060B61C /* sprites.atlas */; };
 		6CC540261EBFC6990060B61C /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC5400F1EBFC6990060B61C /* CGFloat+Extensions.swift */; };
 		6CC540271EBFC6990060B61C /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC540101EBFC6990060B61C /* CGPoint+Extensions.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C3619891EC258940028FA30 /* PlayerEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
+		6C36198B1EC25D180028FA30 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		6CC5400D1EBFC6990060B61C /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		6CC5400F1EBFC6990060B61C /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		6CC540101EBFC6990060B61C /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -77,6 +81,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C3619871EC258010028FA30 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				6C3619891EC258940028FA30 /* PlayerEntity.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		6C3619881EC2580A0028FA30 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6C36198B1EC25D180028FA30 /* SpriteComponent.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		6CC5400E1EBFC6990060B61C /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +168,8 @@
 		6CF7D90C1EB91D6B0025C9DF /* Flappy Phil */ = {
 			isa = PBXGroup;
 			children = (
+				6C3619881EC2580A0028FA30 /* Components */,
+				6C3619871EC258010028FA30 /* Entities */,
 				6CC540241EBFC6990060B61C /* Resources */,
 				6CF7D90D1EB91D6B0025C9DF /* AppDelegate.swift */,
 				6CF7D9131EB91D6B0025C9DF /* GameScene.swift */,
@@ -249,7 +271,9 @@
 				6CC5402B1EBFC6990060B61C /* SKAction+SpecialEffects.swift in Sources */,
 				6CC540281EBFC6990060B61C /* CGVector+Extensions.swift in Sources */,
 				6CC5402A1EBFC6990060B61C /* SKAction+Extensions.swift in Sources */,
+				6C36198A1EC258940028FA30 /* PlayerEntity.swift in Sources */,
 				6CC5402C1EBFC6990060B61C /* SKColor+Extensions.swift in Sources */,
+				6C36198C1EC25D190028FA30 /* SpriteComponent.swift in Sources */,
 				6CF7D9161EB91D6B0025C9DF /* GameViewController.swift in Sources */,
 				6CC540291EBFC6990060B61C /* Int+Extensions.swift in Sources */,
 				6CC5402D1EBFC6990060B61C /* SKNode+Extensions.swift in Sources */,
