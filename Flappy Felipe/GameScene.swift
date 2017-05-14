@@ -31,7 +31,7 @@ class GameScene: SKScene {
         // Players
         let player = PlayerEntity(imageName: "Bird0")
     
-    // SKScene Methods
+    // MARK: SKScene Methods
     override func didMove(to view: SKView) {
         
         addChild(worldNode)
@@ -40,17 +40,39 @@ class GameScene: SKScene {
         setupPlayer()
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        
+        // Called once, saves the current time as last updated
+        if lastUpdateTimeInterval == 0 {
+            lastUpdateTimeInterval = currentTime
+        }
+        
+        // Minuses the last updated time from the current time
+        deltaTime = currentTime - lastUpdateTimeInterval
+        
+        // Assigns the current time to the last updated
+        lastUpdateTimeInterval = currentTime
+        
+        updateForeground()
+        
+        // Notice we use the delta to avoid "holes" in movement
+        player.update(deltaTime: deltaTime)
+    }
+    
+    // MARK: Set Up Node Methods
     func setUpBackground() {
         
-        let background = SKSpriteNode(imageNamed: "Background")
-        background.anchorPoint = CGPoint(x: 0.5, y: 1.0)
-        background.position = CGPoint(x: size.width / 2, y: size.height)
-        background.zPosition = Layer.background.rawValue
+        let backgroundNode = SKSpriteNode(imageNamed: "Background")
+        backgroundNode.anchorPoint = CGPoint(x: 0.5, y: 1.0)
+        backgroundNode.position = CGPoint(x: size.width / 2, y: size.height)
+        backgroundNode.zPosition = Layer.background.rawValue
         
-        worldNode.addChild(background)
+        worldNode.addChild(backgroundNode)
         
-        playableStart = size.height - background.size.height
-        playableHeight = background.size.height
+        // Playable Start = height of the ground
+        playableStart = size.height - backgroundNode.size.height
+        // Playable height = height of the sky
+        playableHeight = backgroundNode.size.height
     }
     
     func setUpForeground() {
@@ -67,6 +89,7 @@ class GameScene: SKScene {
         }
     }
     
+    // Makes floor appear to be moving
     func updateForeground() {
         
         worldNode.enumerateChildNodes(withName: "foreground") { (node, stop) in
@@ -90,23 +113,8 @@ class GameScene: SKScene {
             }
         }
     }
-    
-    override func update(_ currentTime: TimeInterval) {
-        
-        // Called once, saves the current time as last updated
-        if lastUpdateTimeInterval == 0 {
-            lastUpdateTimeInterval = currentTime
-        }
-        
-        // Minuses the last updated time from the current time
-        deltaTime = currentTime - lastUpdateTimeInterval
-        
-        // Assigns the current time to the last updated
-        lastUpdateTimeInterval = currentTime
-        
-        updateForeground()
-    }
-    
+
+    // MARK: Entity Methods
     func setupPlayer() {
         
         let playerNode = player.spriteComponent.node
@@ -114,6 +122,12 @@ class GameScene: SKScene {
         playerNode.zPosition = Layer.player.rawValue
         
         worldNode.addChild(playerNode)
+        
+        player.movementComponent.playableStart = playableStart
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        player.movementComponent.applyImpulse(lastUpdateTimeInterval)
     }
 }
 

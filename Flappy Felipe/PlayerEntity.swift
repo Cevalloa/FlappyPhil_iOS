@@ -12,13 +12,19 @@ import GameplayKit
 class PlayerEntity: GKEntity {
     
     var spriteComponent: SpriteComponent!
+    var movementComponent: MovementComponent!
     
     init(imageName: String) {
         super.init()
         
         let texture = SKTexture(imageNamed: imageName)
+        
+        // Sprite component (image!)
         spriteComponent = SpriteComponent(entity: self, texture: texture, size: texture.size())
-        addComponent(spriteComponent )
+        addComponent(spriteComponent)
+        
+        movementComponent = MovementComponent(entity: self)
+        addComponent(movementComponent)
     }
     
     required init?(coder aDecoder: NSCoder) {

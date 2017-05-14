@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6C36198A1EC258940028FA30 /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3619891EC258940028FA30 /* PlayerEntity.swift */; };
 		6C36198C1EC25D190028FA30 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C36198B1EC25D180028FA30 /* SpriteComponent.swift */; };
+		6CA878F51EC658CF00D313D9 /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA878F41EC658CF00D313D9 /* MovementComponent.swift */; };
 		6CC540251EBFC6990060B61C /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6CC5400D1EBFC6990060B61C /* sprites.atlas */; };
 		6CC540261EBFC6990060B61C /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC5400F1EBFC6990060B61C /* CGFloat+Extensions.swift */; };
 		6CC540271EBFC6990060B61C /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC540101EBFC6990060B61C /* CGPoint+Extensions.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		6C3619891EC258940028FA30 /* PlayerEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
 		6C36198B1EC25D180028FA30 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		6CA878F41EC658CF00D313D9 /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		6CC5400D1EBFC6990060B61C /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		6CC5400F1EBFC6990060B61C /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		6CC540101EBFC6990060B61C /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				6C36198B1EC25D180028FA30 /* SpriteComponent.swift */,
+				6CA878F41EC658CF00D313D9 /* MovementComponent.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				6CC5402E1EBFC6990060B61C /* SKTAudio.swift in Sources */,
 				6CC540261EBFC6990060B61C /* CGFloat+Extensions.swift in Sources */,
 				6CC540311EBFC6990060B61C /* Vector3.swift in Sources */,
+				6CA878F51EC658CF00D313D9 /* MovementComponent.swift in Sources */,
 				6CF7D90E1EB91D6B0025C9DF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

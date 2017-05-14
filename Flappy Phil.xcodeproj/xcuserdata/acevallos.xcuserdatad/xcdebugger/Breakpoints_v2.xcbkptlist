@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Flappy Felipe/GameScene.swift"
-            timestampString = "516126463.706033"
+            filePath = "Flappy Felipe/MovementComponent.swift"
+            timestampString = "516493393.388519"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "updateForeground()"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "applyMovement(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
