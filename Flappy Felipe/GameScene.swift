@@ -16,7 +16,15 @@ enum Layer: CGFloat {
     case player
 }
 
-class GameScene: SKScene {
+// Which category the sprite belongs
+struct PhysicsCategory {
+    static let None: UInt32 = 0
+    static let Player: UInt32 = 0b1
+    static let Obstacle: UInt32 = 0b10
+    static let Ground: UInt32 = 0b100
+}
+
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Class Properties
         let worldNode = SKNode()
@@ -43,6 +51,9 @@ class GameScene: SKScene {
     
     // MARK: SKScene Methods
     override func didMove(to view: SKView) {
+        
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        physicsWorld.contactDelegate = self
         
         addChild(worldNode)
         setUpBackground()
@@ -85,6 +96,13 @@ class GameScene: SKScene {
         // Playable height = height of the sky
         playableHeight = backgroundNode.size.height
         
+        // Add Physics
+        let lowerLeft = CGPoint(x: 0, y: playableStart)
+        let lowerRight = CGPoint(x: size.width, y: playableStart)
+        physicsBody = SKPhysicsBody(edgeFrom: lowerLeft, to: lowerRight)
+        physicsBody?.categoryBitMask = PhysicsCategory.Ground
+        physicsBody?.collisionBitMask = 0
+        physicsBody?.contactTestBitMask = PhysicsCategory.Player
     }
     
     func setUpForeground() {
@@ -197,6 +215,20 @@ class GameScene: SKScene {
         let overallSequence = SKAction.sequence([firstDelay, foreverSpawn])
         
         run(overallSequence)
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        // if BodyA == player { other = bodyB} else { other = bodyA}
+        let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
+        
+        if other.categoryBitMask == PhysicsCategory.Ground {
+            
+            print("hit ground")
+        }
+        
+        if other.categoryBitMask == PhysicsCategory.Obstacle {
+            print("hit obstacle")
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
