@@ -11,6 +11,7 @@ import GameplayKit
 
 enum Layer: CGFloat {
     case background
+    case obstacle
     case foreground
     case player
 }
@@ -21,7 +22,16 @@ class GameScene: SKScene {
         let worldNode = SKNode()
         var playableStart: CGFloat = 0
         var playableHeight: CGFloat = 0
-        
+    
+        // Obstacle
+        let bottomObstacleMinFraction: CGFloat = 0.1
+        let bottomObstacleMaxFraction: CGFloat = 0.6
+        let gapMultiplier: CGFloat = 4.5 // the higher the number, the easier the game
+    
+        // Delays for obstacles
+        let firstSpawnDelay: TimeInterval = 1.75
+        let everySpawnDelay: TimeInterval = 1.5
+    
         // Creates infinite ground movement
         let numberOfForegrounds = 2
         let groundSpeed: CGFloat = 150
@@ -38,6 +48,7 @@ class GameScene: SKScene {
         setUpBackground()
         setUpForeground()
         setupPlayer()
+        startSpawning()
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -73,6 +84,7 @@ class GameScene: SKScene {
         playableStart = size.height - backgroundNode.size.height
         // Playable height = height of the sky
         playableHeight = backgroundNode.size.height
+        
     }
     
     func setUpForeground() {
@@ -124,6 +136,67 @@ class GameScene: SKScene {
         worldNode.addChild(playerNode)
         
         player.movementComponent.playableStart = playableStart
+    }
+    
+    // MARK: Obstacle Methods
+    func createObstacle() -> SKSpriteNode {
+        
+        let obstacle = ObstacleEntity(imageName: "Cactus")
+        let obstacleNode = obstacle.spriteCompnent.node
+        obstacleNode.zPosition = Layer.obstacle.rawValue
+        
+        return obstacle.spriteCompnent.node
+    }
+    
+    func spawnObstacle() {
+        
+        let bottomObstacle = createObstacle()
+        let startX = size.width + bottomObstacle.size.width / 2
+        
+        let bottomObstacleMin = (playableStart - bottomObstacle.size.height / 2) + playableHeight * bottomObstacleMinFraction
+        let bottomObstacleMax = (playableStart - bottomObstacle.size.height / 2) + playableHeight * bottomObstacleMaxFraction
+
+        // Using gameplaykit's randomization
+        let randomSource = GKARC4RandomSource()
+        let randomDistribution = GKRandomDistribution(randomSource: randomSource, lowestValue: Int(round(bottomObstacleMin)), highestValue: Int(round(bottomObstacleMax)))
+        
+        let randomValue = randomDistribution.nextInt()
+        
+        bottomObstacle.position = CGPoint(x: startX, y: CGFloat(randomValue))
+        worldNode.addChild(bottomObstacle)
+        
+        // Top Obstacle
+        let topObstacle = createObstacle()
+        topObstacle.zRotation = CGFloat(180).degreesToRadians()
+        topObstacle.position = CGPoint(x: startX,
+                                       y: bottomObstacle.position.y + bottomObstacle.size.height / 2 + topObstacle.size.height / 2 + player.spriteComponent.node.size.height * gapMultiplier )
+        
+        worldNode.addChild(topObstacle)
+        
+        // Move obstacles
+        let moveX = size.width + topObstacle.size.width // Ending location (we will reverse it)
+        let moveDuration = moveX / groundSpeed // Ending location / speed ground is going
+        
+        let sequence = SKAction.sequence([
+            SKAction.moveBy(x: -moveX, y: 0, duration: TimeInterval(moveDuration)),
+            SKAction.removeFromParent()
+            ])
+        
+        topObstacle.run(sequence)
+        bottomObstacle.run(sequence)
+    }
+    
+    func startSpawning() {
+        
+        let firstDelay = SKAction.wait(forDuration: firstSpawnDelay)
+        let spawn = SKAction.run(spawnObstacle)
+        let everyDelay = SKAction.wait(forDuration: everySpawnDelay)
+        
+        let spawnSequence = SKAction.sequence([spawn, everyDelay])
+        let foreverSpawn = SKAction.repeatForever(spawnSequence)
+        let overallSequence = SKAction.sequence([firstDelay, foreverSpawn])
+        
+        run(overallSequence)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

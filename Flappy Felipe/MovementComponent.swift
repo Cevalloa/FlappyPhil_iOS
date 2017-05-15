@@ -42,13 +42,11 @@ class MovementComponent: GKComponent {
         
         // Velocity is the location where gravity wants you to be
         velocity += gravityStep // Gravity wants you here += how much you want to keep going down by
-        print("v:\(velocity) g:\(gravityStep)")
         
         // Apply Velocity
         let velocityStep = velocity * CGFloat(seconds) // Velocity is Y
         
         spriteNode.position += velocityStep //Move down bit by bit with velocity step
-        print("vs:\(velocityStep), sl: \(spriteNode.position)")
         
         // Temporary Ground Hit
         // if the y position
@@ -63,8 +61,8 @@ class MovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        if let player = entity as? PlayerEntity {
+        //if let player = entity as? PlayerEntity {
             applyMovement(seconds)
-        }
+        //}
     }
 }
