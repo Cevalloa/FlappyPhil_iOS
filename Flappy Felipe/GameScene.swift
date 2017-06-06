@@ -49,6 +49,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Players
         let player = PlayerEntity(imageName: "Bird0")
     
+        // Sounds
+        let popAction = SKAction.playSoundFileNamed("pop.wav", waitForCompletion: false)
+    
         // State Machine
         lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
             PlayingState(scene: self),
@@ -238,6 +241,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         run(overallSequence, withKey: "spawn")
     }
     
+    // MARK - Restart
+    func restartGame(_ stateClass: AnyClass) {
+        
+        run(popAction)
+        let newScene = GameScene(size: size)
+        let transition = SKTransition.fade(with: SKColor.black, duration: 0.02)
+        view?.presentScene(newScene, transition: transition)
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         // if BodyA == player { other = bodyB} else { other = bodyA}
         let other = contact.bodyA.categoryBitMask == PhysicsCategory.Player ? contact.bodyB : contact.bodyA
@@ -255,7 +267,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        player.movementComponent.applyImpulse(lastUpdateTimeInterval)
+//        player.movementComponent.applyImpulse(lastUpdateTimeInterval)
+        switch stateMachine.currentState {
+            
+        case is PlayingState:
+            player.movementComponent.applyImpulse(lastUpdateTimeInterval)
+        
+        case is GameOverState:
+            restartGame(PlayingState.self)
+            
+        default:
+            break
+        }
     }
 }
 
