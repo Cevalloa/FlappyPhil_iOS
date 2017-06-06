@@ -1,4 +1,4 @@
-//
+ //
 //  GameScene.swift
 //  Flappy Felipe
 //
@@ -49,6 +49,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Players
         let player = PlayerEntity(imageName: "Bird0")
     
+        // State Machine
+        lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
+            PlayingState(scene: self),
+            FallingState(scene: self),
+            GameOverState(scene: self)
+            
+            ])
+    
     // MARK: SKScene Methods
     override func didMove(to view: SKView) {
         
@@ -59,7 +67,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setUpBackground()
         setUpForeground()
         setupPlayer()
-        startSpawning()
+        //startSpawning()
+        
+        stateMachine.enter(PlayingState.self)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -75,7 +85,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Assigns the current time to the last updated
         lastUpdateTimeInterval = currentTime
         
-        updateForeground()
+//        updateForeground()
+        // You can call it individually !
+        stateMachine.update(deltaTime: deltaTime)
         
         // Notice we use the delta to avoid "holes" in movement
         player.update(deltaTime: deltaTime)
@@ -162,8 +174,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let obstacle = ObstacleEntity(imageName: "Cactus")
         let obstacleNode = obstacle.spriteCompnent.node
         obstacleNode.zPosition = Layer.obstacle.rawValue
+        obstacleNode.name = "obstacle"
         
         return obstacle.spriteCompnent.node
+    }
+    
+    func stopSpawning() {
+        removeAction(forKey: "spawn")
+        worldNode.enumerateChildNodes(withName: "obstacle") { (node, stop) in
+            node.removeAllActions()
+        }
     }
     
     func spawnObstacle() {
@@ -214,7 +234,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let foreverSpawn = SKAction.repeatForever(spawnSequence)
         let overallSequence = SKAction.sequence([firstDelay, foreverSpawn])
         
-        run(overallSequence)
+        //run(overallSequence)
+        run(overallSequence, withKey: "spawn")
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -223,11 +244,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if other.categoryBitMask == PhysicsCategory.Ground {
             
-            print("hit ground")
+//            print("hit ground")
+            stateMachine.enter(GameOverState.self)
         }
         
         if other.categoryBitMask == PhysicsCategory.Obstacle {
-            print("hit obstacle")
+//            print("hit obstacle")
+            stateMachine.enter(FallingState.self)
         }
     }
     

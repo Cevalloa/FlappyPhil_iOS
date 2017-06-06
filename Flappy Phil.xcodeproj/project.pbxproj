@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6C36198A1EC258940028FA30 /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3619891EC258940028FA30 /* PlayerEntity.swift */; };
 		6C36198C1EC25D190028FA30 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C36198B1EC25D180028FA30 /* SpriteComponent.swift */; };
+		6C4F14721ED8AE95008C94EC /* PlayableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F14711ED8AE95008C94EC /* PlayableState.swift */; };
+		6C4F14741ED8AEA2008C94EC /* FallingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F14731ED8AEA2008C94EC /* FallingState.swift */; };
+		6C4F14761ED8AEB8008C94EC /* GameOverState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F14751ED8AEB8008C94EC /* GameOverState.swift */; };
 		6CA878F51EC658CF00D313D9 /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA878F41EC658CF00D313D9 /* MovementComponent.swift */; };
 		6CC540251EBFC6990060B61C /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 6CC5400D1EBFC6990060B61C /* sprites.atlas */; };
 		6CC540261EBFC6990060B61C /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC5400F1EBFC6990060B61C /* CGFloat+Extensions.swift */; };
@@ -42,6 +45,9 @@
 /* Begin PBXFileReference section */
 		6C3619891EC258940028FA30 /* PlayerEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
 		6C36198B1EC25D180028FA30 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		6C4F14711ED8AE95008C94EC /* PlayableState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayableState.swift; sourceTree = "<group>"; };
+		6C4F14731ED8AEA2008C94EC /* FallingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FallingState.swift; sourceTree = "<group>"; };
+		6C4F14751ED8AEB8008C94EC /* GameOverState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverState.swift; sourceTree = "<group>"; };
 		6CA878F41EC658CF00D313D9 /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		6CC5400D1EBFC6990060B61C /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		6CC5400F1EBFC6990060B61C /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
@@ -101,6 +107,16 @@
 				6CA878F41EC658CF00D313D9 /* MovementComponent.swift */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		6C4F14701ED8AAFD008C94EC /* GameStates */ = {
+			isa = PBXGroup;
+			children = (
+				6C4F14711ED8AE95008C94EC /* PlayableState.swift */,
+				6C4F14731ED8AEA2008C94EC /* FallingState.swift */,
+				6C4F14751ED8AEB8008C94EC /* GameOverState.swift */,
+			);
+			name = GameStates;
 			sourceTree = "<group>";
 		};
 		6CC5400E1EBFC6990060B61C /* Artwork */ = {
@@ -174,6 +190,7 @@
 		6CF7D90C1EB91D6B0025C9DF /* Flappy Phil */ = {
 			isa = PBXGroup;
 			children = (
+				6C4F14701ED8AAFD008C94EC /* GameStates */,
 				6C3619881EC2580A0028FA30 /* Components */,
 				6C3619871EC258010028FA30 /* Entities */,
 				6CC540241EBFC6990060B61C /* Resources */,
@@ -275,16 +292,19 @@
 				6CC540301EBFC6990060B61C /* SKTTimingFunctions.swift in Sources */,
 				6CC5402F1EBFC6990060B61C /* SKTEffects.swift in Sources */,
 				6CC5402B1EBFC6990060B61C /* SKAction+SpecialEffects.swift in Sources */,
+				6C4F14721ED8AE95008C94EC /* PlayableState.swift in Sources */,
 				6CC540281EBFC6990060B61C /* CGVector+Extensions.swift in Sources */,
 				6CC5402A1EBFC6990060B61C /* SKAction+Extensions.swift in Sources */,
 				6C36198A1EC258940028FA30 /* PlayerEntity.swift in Sources */,
 				6CC5402C1EBFC6990060B61C /* SKColor+Extensions.swift in Sources */,
+				6C4F14741ED8AEA2008C94EC /* FallingState.swift in Sources */,
 				6CEDFD111EC9150300C546CB /* ObstacleEntity.swift in Sources */,
 				6C36198C1EC25D190028FA30 /* SpriteComponent.swift in Sources */,
 				6CF7D9161EB91D6B0025C9DF /* GameViewController.swift in Sources */,
 				6CC540291EBFC6990060B61C /* Int+Extensions.swift in Sources */,
 				6CC5402D1EBFC6990060B61C /* SKNode+Extensions.swift in Sources */,
 				6CC5402E1EBFC6990060B61C /* SKTAudio.swift in Sources */,
+				6C4F14761ED8AEB8008C94EC /* GameOverState.swift in Sources */,
 				6CC540261EBFC6990060B61C /* CGFloat+Extensions.swift in Sources */,
 				6CC540311EBFC6990060B61C /* Vector3.swift in Sources */,
 				6CA878F51EC658CF00D313D9 /* MovementComponent.swift in Sources */,
