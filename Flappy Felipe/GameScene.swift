@@ -14,6 +14,7 @@ enum Layer: CGFloat {
     case obstacle
     case foreground
     case player
+    case ui
 }
 
 // Which category the sprite belongs
@@ -60,8 +61,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             ])
     
+        // Score keeping
+        var score = 0
+        var scoreLabel: SKLabelNode!
+        var fontName = "AmericanTypewriter-Bold"
+        var margin: CGFloat = 20.0
+    
     // MARK: SKScene Methods
-    override func didMove(to view: SKView) {
+    override func didMove(to view: SKView) { // Like view did load
         
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
@@ -70,6 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setUpBackground()
         setUpForeground()
         setupPlayer()
+        setupScoreLabel()
         //startSpawning()
         
         stateMachine.enter(PlayingState.self)
@@ -169,6 +177,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         worldNode.addChild(playerNode)
         
         player.movementComponent.playableStart = playableStart
+    }
+    
+    // MARK: Point Tracking Methods
+    func setupScoreLabel() {
+        
+        scoreLabel = SKLabelNode(fontNamed: fontName)
+        scoreLabel.fontColor = SKColor(red: 101.0/255.0, green: 71.0/255.0, blue: 73.0/255, alpha: 1.0)
+        scoreLabel.position = CGPoint(x: size.width / 2, y: size.height - margin)
+        scoreLabel.verticalAlignmentMode = .top
+        scoreLabel.zPosition = Layer.ui.rawValue
+        scoreLabel.text = "\(score)"
+        worldNode.addChild(scoreLabel)
     }
     
     // MARK: Obstacle Methods

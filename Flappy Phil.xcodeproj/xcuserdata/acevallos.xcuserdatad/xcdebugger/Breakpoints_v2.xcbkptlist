@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Flappy Felipe/GameScene.swift"
-            timestampString = "518446728.015162"
+            timestampString = "518536813.532038"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
