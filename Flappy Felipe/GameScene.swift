@@ -66,6 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var scoreLabel: SKLabelNode!
         var fontName = "AmericanTypewriter-Bold"
         var margin: CGFloat = 20.0
+        let coinAction = SKAction.playSoundFileNamed("coin.wav", waitForCompletion: false) // Song played when point added
     
     // MARK: SKScene Methods
     override func didMove(to view: SKView) { // Like view did load
@@ -198,6 +199,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let obstacleNode = obstacle.spriteCompnent.node
         obstacleNode.zPosition = Layer.obstacle.rawValue
         obstacleNode.name = "obstacle"
+        obstacleNode.userData = NSMutableDictionary()
         
         return obstacle.spriteCompnent.node
     }
@@ -259,6 +261,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //run(overallSequence)
         run(overallSequence, withKey: "spawn")
+    }
+    
+    func updateScore() {
+        
+        worldNode.enumerateChildNodes(withName: "obstacle") { (node, stop) in
+            if let obstacle = node as? SKSpriteNode {
+                
+                if let passed = obstacle.userData?["Passed"] as? NSNumber {
+                    
+                    if passed.boolValue {
+                        return
+                    }
+                }
+                
+                if self.player.spriteComponent.node.position.x > obstacle.position.x + obstacle.size.width / 2 {
+                    
+                    self.score += 1
+                    self.scoreLabel.text = "\(self.score/2)"
+                    obstacle.userData?["Passed"] = NSNumber(value: true as Bool)
+                    self.run(self.coinAction)
+                }
+            }
+        }
     }
     
     // MARK - Restart
