@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C12E7131EE9E368005EACF2 /* MainMenuState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C12E7121EE9E368005EACF2 /* MainMenuState.swift */; };
+		6C12E7151EE9E372005EACF2 /* TutorialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C12E7141EE9E372005EACF2 /* TutorialState.swift */; };
 		6C36198A1EC258940028FA30 /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3619891EC258940028FA30 /* PlayerEntity.swift */; };
 		6C36198C1EC25D190028FA30 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C36198B1EC25D180028FA30 /* SpriteComponent.swift */; };
 		6C4F14721ED8AE95008C94EC /* PlayableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4F14711ED8AE95008C94EC /* PlayableState.swift */; };
@@ -43,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C12E7121EE9E368005EACF2 /* MainMenuState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuState.swift; sourceTree = "<group>"; };
+		6C12E7141EE9E372005EACF2 /* TutorialState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialState.swift; sourceTree = "<group>"; };
 		6C3619891EC258940028FA30 /* PlayerEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
 		6C36198B1EC25D180028FA30 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		6C4F14711ED8AE95008C94EC /* PlayableState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayableState.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				6C4F14711ED8AE95008C94EC /* PlayableState.swift */,
 				6C4F14731ED8AEA2008C94EC /* FallingState.swift */,
 				6C4F14751ED8AEB8008C94EC /* GameOverState.swift */,
+				6C12E7121EE9E368005EACF2 /* MainMenuState.swift */,
+				6C12E7141EE9E372005EACF2 /* TutorialState.swift */,
 			);
 			name = GameStates;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 				6CC540271EBFC6990060B61C /* CGPoint+Extensions.swift in Sources */,
 				6CC540301EBFC6990060B61C /* SKTTimingFunctions.swift in Sources */,
 				6CC5402F1EBFC6990060B61C /* SKTEffects.swift in Sources */,
+				6C12E7131EE9E368005EACF2 /* MainMenuState.swift in Sources */,
 				6CC5402B1EBFC6990060B61C /* SKAction+SpecialEffects.swift in Sources */,
 				6C4F14721ED8AE95008C94EC /* PlayableState.swift in Sources */,
 				6CC540281EBFC6990060B61C /* CGVector+Extensions.swift in Sources */,
@@ -305,6 +312,7 @@
 				6CC5402D1EBFC6990060B61C /* SKNode+Extensions.swift in Sources */,
 				6CC5402E1EBFC6990060B61C /* SKTAudio.swift in Sources */,
 				6C4F14761ED8AEB8008C94EC /* GameOverState.swift in Sources */,
+				6C12E7151EE9E372005EACF2 /* TutorialState.swift in Sources */,
 				6CC540261EBFC6990060B61C /* CGFloat+Extensions.swift in Sources */,
 				6CC540311EBFC6990060B61C /* Vector3.swift in Sources */,
 				6CA878F51EC658CF00D313D9 /* MovementComponent.swift in Sources */,

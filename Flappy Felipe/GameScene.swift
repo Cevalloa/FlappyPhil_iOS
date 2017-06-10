@@ -53,8 +53,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Sounds
         let popAction = SKAction.playSoundFileNamed("pop.wav", waitForCompletion: false)
     
+        // Initial State
+        var initialState: AnyClass
+    
         // State Machine
         lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
+            MainMenuState(scene: self),
+            TutorialState(scene: self),
             PlayingState(scene: self),
             FallingState(scene: self),
             GameOverState(scene: self)
@@ -68,6 +73,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var margin: CGFloat = 20.0
         let coinAction = SKAction.playSoundFileNamed("coin.wav", waitForCompletion: false) // Song played when point added
     
+    //MARK: Initializer Methods
+    init(size: CGSize, stateClass: AnyClass) {
+        
+        initialState = stateClass
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: SKScene Methods
     override func didMove(to view: SKView) { // Like view did load
         
@@ -75,13 +91,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         
         addChild(worldNode)
-        setUpBackground()
-        setUpForeground()
-        setupPlayer()
-        setupScoreLabel()
+        //setUpBackground()
+        //setUpForeground()
+        //setupPlayer()
+        //setupScoreLabel()
         //startSpawning()
         
-        stateMachine.enter(PlayingState.self)
+        stateMachine.enter(initialState)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -290,7 +306,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func restartGame(_ stateClass: AnyClass) {
         
         run(popAction)
-        let newScene = GameScene(size: size)
+        let newScene = GameScene(size: size, stateClass: stateClass)
         let transition = SKTransition.fade(with: SKColor.black, duration: 0.02)
         view?.presentScene(newScene, transition: transition)
     }
@@ -315,11 +331,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        player.movementComponent.applyImpulse(lastUpdateTimeInterval)
         switch stateMachine.currentState {
             
+        case is MainMenuState:
+            restartGame(TutorialState.self)
+        case is TutorialState:
+            stateMachine.enter(PlayingState.self)
+        
         case is PlayingState:
             player.movementComponent.applyImpulse(lastUpdateTimeInterval)
         
         case is GameOverState:
-            restartGame(PlayingState.self)
+            restartGame(TutorialState.self)
             
         default:
             break

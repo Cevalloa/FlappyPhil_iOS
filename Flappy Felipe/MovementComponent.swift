@@ -61,8 +61,10 @@ class MovementComponent: GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
-        //if let player = entity as? PlayerEntity {
-            applyMovement(seconds)
-        //}
+        if let player = entity as? PlayerEntity {
+            if player.movementAllowed {
+                applyMovement(seconds)
+            }
+        }
     }
 }

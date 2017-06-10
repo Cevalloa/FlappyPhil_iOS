@@ -24,6 +24,7 @@ class PlayingState: GKState {
     override func didEnter(from previousState: GKState?) {
         
         scene.startSpawning()
+        scene.player.movementAllowed = true
     }
     
     // Is a state machine in this state allowed to transition into specific states

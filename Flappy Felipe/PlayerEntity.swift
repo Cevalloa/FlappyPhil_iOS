@@ -14,6 +14,8 @@ class PlayerEntity: GKEntity {
     var spriteComponent: SpriteComponent!
     var movementComponent: MovementComponent!
     
+    var movementAllowed = false
+    
     init(imageName: String) {
         super.init()
         

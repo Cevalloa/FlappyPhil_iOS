@@ -27,6 +27,8 @@ class GameOverState: GKState {
         
         scene.run(hitGroundAction)
         scene.stopSpawning()
+        
+        scene.player.movementAllowed = false
     }
     
     // Is a state machine in this state allowed to transition into specific states
