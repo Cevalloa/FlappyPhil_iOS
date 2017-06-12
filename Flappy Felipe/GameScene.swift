@@ -24,8 +24,18 @@ struct PhysicsCategory {
     static let Obstacle: UInt32 = 0b10
     static let Ground: UInt32 = 0b100
 }
+ 
+ protocol GameSceneDelegate {
+    
+    func screenShot() -> UIImage
+    func shareString(_ string: String, url: URL, image: UIImage)
+ }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    // Delegate
+    var gameSceneDelegate: GameSceneDelegate
+    let appStoreLink = ""
     
     // Class Properties
         let worldNode = SKNode()
@@ -74,8 +84,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let coinAction = SKAction.playSoundFileNamed("coin.wav", waitForCompletion: false) // Song played when point added
     
     //MARK: Initializer Methods
-    init(size: CGSize, stateClass: AnyClass) {
-        
+    init(size: CGSize, stateClass: AnyClass, delegate: GameSceneDelegate) {
+        gameSceneDelegate = delegate
         initialState = stateClass
         super.init(size: size)
     }
@@ -306,9 +316,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func restartGame(_ stateClass: AnyClass) {
         
         run(popAction)
-        let newScene = GameScene(size: size, stateClass: stateClass)
+        let newScene = GameScene(size: size, stateClass: stateClass, delegate: gameSceneDelegate)
         let transition = SKTransition.fade(with: SKColor.black, duration: 0.02)
         view?.presentScene(newScene, transition: transition)
+    }
+    
+    func shareScore() {
+        
+        let urlString = appStoreLink
+        let url = URL(string: urlString)
+        
+        let screenShot = gameSceneDelegate.screenShot()
+        let initialTextString = "OMG! I scored \(score / 2) points in Flappy Felipe!"
+        gameSceneDelegate.shareString(initialTextString, url: url!, image: screenShot)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -329,21 +349,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        player.movementComponent.applyImpulse(lastUpdateTimeInterval)
-        switch stateMachine.currentState {
-            
-        case is MainMenuState:
-            restartGame(TutorialState.self)
-        case is TutorialState:
-            stateMachine.enter(PlayingState.self)
         
-        case is PlayingState:
-            player.movementComponent.applyImpulse(lastUpdateTimeInterval)
-        
-        case is GameOverState:
-            restartGame(TutorialState.self)
+        if let touch = touches.first {
             
-        default:
-            break
+            let touchLocation = touch.location(in:self)
+            
+            switch stateMachine.currentState {
+                
+            case is MainMenuState:
+                restartGame(TutorialState.self)
+            case is TutorialState:
+                stateMachine.enter(PlayingState.self)
+                
+            case is PlayingState:
+                player.movementComponent.applyImpulse(lastUpdateTimeInterval)
+                
+            case is GameOverState:
+                
+                if touchLocation.x < size.width * 0.6 {
+                    
+                    restartGame(TutorialState.self)
+                } else {
+                    
+                    shareScore()
+                }
+                
+            default:
+                break
+            }
         }
     }
 }
