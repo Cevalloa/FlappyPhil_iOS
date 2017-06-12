@@ -11,11 +11,15 @@ import GameplayKit
 
 class PlayerEntity: GKEntity {
     
+    // MARK: Components
     var spriteComponent: SpriteComponent!
     var movementComponent: MovementComponent!
+    var animationComponent: AnimationComponent!
     
     var movementAllowed = false
+    var numberOfFrames = 3
     
+    // MARK: - Initialization Methods
     init(imageName: String) {
         super.init()
         
@@ -27,6 +31,23 @@ class PlayerEntity: GKEntity {
         
         movementComponent = MovementComponent(entity: self)
         addComponent(movementComponent)
+        
+        // Adds frames in forward motion
+        var textures: Array<SKTexture> = []
+        for i in 0..<numberOfFrames {
+            
+            textures.append(SKTexture(imageNamed: "Bird\(i)"))
+        }
+
+        // Adds frames in a backwards motion
+        for i in stride(from: numberOfFrames, to: 0, by: -1) {
+            textures.append(SKTexture(imageNamed: "Bird\(i)"))
+        }
+        
+        // Now add textures to animation component
+        animationComponent = AnimationComponent(entity: self, textures: textures)
+        // Now add component to this Entity (Phil!)
+        addComponent(animationComponent)
         
         // Add Physics
         let spriteNode = spriteComponent.node
