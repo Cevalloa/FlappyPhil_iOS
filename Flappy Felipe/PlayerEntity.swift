@@ -49,6 +49,9 @@ class PlayerEntity: GKEntity {
         // Now add component to this Entity (Phil!)
         addComponent(animationComponent)
         
+        // So phil points up on start
+        movementComponent.applyInitialImpulse()
+        
         // Add Physics
         let spriteNode = spriteComponent.node
         spriteNode.physicsBody = SKPhysicsBody(texture: spriteNode.texture!, size: spriteNode.frame.size)
