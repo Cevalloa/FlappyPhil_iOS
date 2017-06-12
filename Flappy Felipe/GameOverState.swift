@@ -63,6 +63,7 @@ class GameOverState: GKState {
         
         let scoreCard = SKSpriteNode(imageNamed: "ScoreCard")
         scoreCard.position = CGPoint(x: scene.size.width * 0.5, y: scene.size.height * 0.5)
+        scoreCard.name = "Tutorial"
         scoreCard.zPosition = Layer.ui.rawValue
         scene.worldNode.addChild(scoreCard)
         
@@ -81,7 +82,7 @@ class GameOverState: GKState {
         scoreCard.addChild(bestScore)
         
         let gameOver = SKSpriteNode(imageNamed: "GameOver")
-        gameOver.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+        gameOver.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2 + scoreCard.size.height / 2 + scene.margin + gameOver.size.height / 2)
         gameOver.zPosition = Layer.ui.rawValue
         scene.worldNode.addChild(gameOver)
         
