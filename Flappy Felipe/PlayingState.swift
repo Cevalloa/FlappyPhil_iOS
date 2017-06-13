@@ -26,6 +26,7 @@ class PlayingState: GKState {
         scene.startSpawning()
         scene.player.movementAllowed = true
         scene.player.animationComponent.startAnimation() // Access components through scene!
+        scene.player.animationComponent.stopWobble()
     }
     
     // Is a state machine in this state allowed to transition into specific states

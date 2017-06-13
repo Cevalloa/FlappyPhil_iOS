@@ -14,7 +14,9 @@ enum Layer: CGFloat {
     case obstacle
     case foreground
     case player
+    case sombrero
     case ui
+    case flash
 }
 
 // Which category the sprite belongs
@@ -204,6 +206,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         worldNode.addChild(playerNode)
         
         player.movementComponent.playableStart = playableStart
+        player.animationComponent.startWobble()
     }
     
     // MARK: Point Tracking Methods
@@ -321,6 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         view?.presentScene(newScene, transition: transition)
     }
     
+    // MARK - External App Methods
     func shareScore() {
         
         let urlString = appStoreLink
@@ -329,6 +333,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let screenShot = gameSceneDelegate.screenShot()
         let initialTextString = "OMG! I scored \(score / 2) points in Flappy Felipe!"
         gameSceneDelegate.shareString(initialTextString, url: url!, image: screenShot)
+    }
+    
+    func rateApp() {
+        
+        let urlString = appStoreLink
+        let url = URL(string: urlString)
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+    }
+    
+    func learn() {
+        let urlString = ""
+        let url = URL(string: urlString)
+        
+        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -357,7 +375,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             switch stateMachine.currentState {
                 
             case is MainMenuState:
-                restartGame(TutorialState.self)
+                
+                if touchLocation.y < size.height * 0.15 {
+                    
+                    learn()
+                } else if touchLocation.x < size.width * 0.6 {
+                    restartGame(TutorialState.self)
+                } else {
+                    
+                    rateApp()
+                }
             case is TutorialState:
                 stateMachine.enter(PlayingState.self)
                 

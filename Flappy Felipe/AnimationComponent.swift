@@ -37,6 +37,25 @@ class AnimationComponent: GKComponent {
         }
     }
     
+    func startWobble() {
+        
+        let moveUp = SKAction.moveBy(x: 0, y: 10, duration: 0.4)
+        moveUp.timingMode = .easeInEaseOut
+        let moveDown = moveUp.reversed()
+        let sequence = SKAction.sequence([moveUp, moveDown])
+        let repeatWobble = SKAction.repeatForever(sequence)
+        spriteComponent.node.run(repeatWobble, withKey: "Wobble")
+        
+        let flapWings = SKAction.animate(with: textures, timePerFrame: 0.07)
+        let repeatFlap = SKAction.repeatForever(flapWings)
+        spriteComponent.node.run(repeatFlap, withKey: "Wobble-Flap")
+    }
+    
+    func stopWobble() {
+        stopAnimation("Wobble")
+        stopAnimation("Wobble-Flap")
+    }
+    
     func startAnimation() {
         
         if (spriteComponent.node.action(forKey: "Flap") == nil) {

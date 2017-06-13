@@ -19,6 +19,9 @@ class PlayerEntity: GKEntity {
     var movementAllowed = false
     var numberOfFrames = 3
     
+    // Sombrero
+    let sombrero = SKSpriteNode(imageNamed: "Sombrero")
+    
     // MARK: - Initialization Methods
     init(imageName: String) {
         super.init()
@@ -28,6 +31,11 @@ class PlayerEntity: GKEntity {
         // Sprite component (image!)
         spriteComponent = SpriteComponent(entity: self, texture: texture, size: texture.size())
         addComponent(spriteComponent)
+        
+        // Sombrero on his head
+        sombrero.position = CGPoint(x: 31 - sombrero.size.width / 2, y: 29 - sombrero.size.height / 2)
+        sombrero.zPosition = Layer.sombrero.rawValue
+        spriteComponent.node.addChild(sombrero)
         
         movementComponent = MovementComponent(entity: self)
         addComponent(movementComponent)
