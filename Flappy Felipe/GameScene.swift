@@ -206,7 +206,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         worldNode.addChild(playerNode)
         
         player.movementComponent.playableStart = playableStart
+        player.movementComponent.playableHeight = playableHeight + playableStart
         player.animationComponent.startWobble()
+        
     }
     
     // MARK: Point Tracking Methods

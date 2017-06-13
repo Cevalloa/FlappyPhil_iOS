@@ -23,6 +23,7 @@ class MovementComponent: GKComponent {
     
     // Where should it drop to
     var playableStart: CGFloat = 0
+    var playableHeight: CGFloat = 0
     
     // Physics variables to tilt
     var velocityModifier: CGFloat = 1000.0 // What angle do you want to go
@@ -95,6 +96,10 @@ class MovementComponent: GKComponent {
         // if the y position
         if spriteNode.position.y - spriteNode.size.height / 2 < playableStart {
             spriteNode.position = CGPoint(x: spriteNode.position.x, y: playableStart + spriteNode.size.height / 2)
+        }
+        
+        if spriteNode.position.y - spriteNode.size.height / 2 > playableHeight {
+            spriteNode.position = CGPoint(x: spriteNode.position.x, y: playableHeight + spriteNode.size.height / 2)
         }
     }
     
