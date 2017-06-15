@@ -10,30 +10,43 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+class GameViewController: UIViewController, GameSceneDelegate {
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
+        // GameViewController has a view, we change it to SKView
+        if let skView = self.view as? SKView {
+            
+            if skView.scene == nil {
                 
-                // Present the scene
-                view.presentScene(scene)
+                // The aspect ratio is set to fit on all screen sizes
+                let aspectRatio = skView.bounds.size.height / skView.bounds.size.width
+                let scene = GameScene(size: CGSize(width: 568 / aspectRatio, height: 568), stateClass: MainMenuState.self, delegate: self)
+                
+                skView.showsFPS = false
+                skView.showsNodeCount = false
+                skView.showsPhysics = false
+                skView.ignoresSiblingOrder = true
+                
+                scene.scaleMode = .aspectFit
+                skView.presentScene(scene)
             }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    
+    // MARK: GameSceneDelegate Methods
+    func screenShot() -> UIImage {
+        
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, 1.0)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
+    
+    func shareString(_ string: String, url: URL, image: UIImage) {
+//        let activityViewController = UIActivityViewController(activityItems: [string, image], applicationActivities: nil)
+//        present(activityViewController, animated: true, completion: nil)
     }
 }

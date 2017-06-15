@@ -81,6 +81,14 @@ class MainMenuState: GKState {
         let scaleDown = SKAction.scale(to: 0.98, duration: 0.75)
         scaleDown.timingMode = .easeInEaseOut
         learnButton.run(SKAction.repeatForever(SKAction.sequence([scaleUp, scaleDown])))
+        
+        #if os(tvOS)
+            playButton.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2)
+            rateButton.isHidden = true
+            learnButton.isHidden = true
+            
+            playButton.run(SKAction.repeatForever(SKAction.sequence([scaleUp, scaleDown])))
+        #endif
     }
 }
 

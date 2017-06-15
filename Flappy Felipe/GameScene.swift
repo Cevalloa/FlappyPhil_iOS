@@ -26,12 +26,17 @@ struct PhysicsCategory {
     static let Obstacle: UInt32 = 0b10
     static let Ground: UInt32 = 0b100
 }
- 
- protocol GameSceneDelegate {
+
+// MARK - Protocols
+protocol GameSceneDelegate {
     
     func screenShot() -> UIImage
     func shareString(_ string: String, url: URL, image: UIImage)
  }
+ 
+protocol TVControlScene {
+    func setupTvControls()
+}
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -54,7 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let everySpawnDelay: TimeInterval = 1.5
     
         // Creates infinite ground movement
-        let numberOfForegrounds = 2
+        var numberOfForegrounds = 2
         let groundSpeed: CGFloat = 150
         var deltaTime: TimeInterval = 0
         var lastUpdateTimeInterval: TimeInterval = 0
@@ -110,6 +115,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //startSpawning()
         
         stateMachine.enter(initialState)
+        
+        // If this is the scene loaded from TV OS.. setup the TV controls!
+        let scene = self as SKScene
+        if let scene = scene as? TVControlScene {
+            scene.setupTvControls()
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -137,11 +148,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func setUpBackground() {
         
         let backgroundNode = SKSpriteNode(imageNamed: "Background")
-        backgroundNode.anchorPoint = CGPoint(x: 0.5, y: 1.0)
-        backgroundNode.position = CGPoint(x: size.width / 2, y: size.height)
-        backgroundNode.zPosition = Layer.background.rawValue
+        // Used to work only for iPhone
+//        backgroundNode.anchorPoint = CGPoint(x: 0.5, y: 1.0)
+//        backgroundNode.position = CGPoint(x: size.width / 2, y: size.height)
+//        backgroundNode.zPosition = Layer.background.rawValue
+        //        worldNode.addChild(backgroundNode)
+
         
-        worldNode.addChild(backgroundNode)
+        // Needed for Apple TV
+        let numberOfSprites = Int(size.width / backgroundNode.size.width) + 1
+        for i in 0..<numberOfSprites {
+            
+            let background = SKSpriteNode(imageNamed: "Background")
+            background.anchorPoint = CGPoint(x: 0.0, y: 1.0)
+            background.position = CGPoint(x: CGFloat(i) * background.size.width + 1, y: size.height)
+            background.zPosition = Layer.background.rawValue
+            background.name = "background"
+            worldNode.addChild(background)
+        }
         
         // Playable Start = height of the ground
         playableStart = size.height - backgroundNode.size.height
@@ -158,6 +182,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setUpForeground() {
+        
+        // Added for Apple TV
+        let foreground = SKSpriteNode(imageNamed: "Ground")
+        let numberOfSprites = Int(size.width / foreground.size.width) + numberOfForegrounds
+        numberOfForegrounds = numberOfSprites
         
         for i in 0..<numberOfForegrounds {
             
@@ -370,6 +399,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        player.movementComponent.applyImpulse(lastUpdateTimeInterval)
         
+        #if os(iOS)
         if let touch = touches.first {
             
             let touchLocation = touch.location(in:self)
@@ -407,6 +437,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 break
             }
         }
+        #endif
     }
 }
 

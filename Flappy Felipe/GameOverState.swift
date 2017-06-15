@@ -150,6 +150,20 @@ class GameOverState: GKState {
             scene.popAction,
             ])
         scene.run(pops)
-
+        
+        #if os(tvOS)
+            
+            let scaleUp = SKAction.scale(to: 1.02, duration: 0.75)
+            scaleUp.timingMode = .easeInEaseOut
+            let scaleDown = SKAction.scale(to: 0.98, duration: 0.75)
+            scaleDown.timingMode = .easeInEaseOut
+            
+            okButton.position = CGPoint(x: scene.size.width / 2, y: scene.size.height / 2 + -scoreCard.size.height)
+            shareButton.isHidden = true
+            okButton.run(SKAction.repeatForever(SKAction.sequence([scaleUp, scaleDown])))
+        #endif
     }
 }
+
+
+
